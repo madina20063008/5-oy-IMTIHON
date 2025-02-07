@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/dist/boxicons.js"
+        integrity="sha512-kWH92pHUC/rcjpSMu19lT+H6TlZwZCAftg9AuSw+AVYSdEKSlXXB8o6g12mg5f+Pj5xO40A7ju2ot/VdodCthw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Admin</title>
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    :root {
+        --white-color: #fff;
+        --yellow-color: #FEAF00;
+        --grey-color: #707070;
+        --grey-color-light: #aaa;
+        --grey-very-light: #C4C4C4;
+        --pink: #F2EAE1;
+    }
+
+    body {
+        background-color: #e7f2fd;
+        transition: all 0.5s ease;
+    }
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 1110px;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 30px;
+        background-color: var(--pink);
+    }
+
+    .nav_right {
+        display: flex;
+    }
+
+    .circle {
+        width: 20px !important;
+    }
+
+    .logo_item {
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        font-size: 22px;
+        font-weight: 500;
+        color: var(--yellow-color);
+    }
+
+    .navbar img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+
+    .search_bar {
+        height: 37px;
+        max-width: 430px;
+        width: 212px;
+    }
+
+    .search_bar input {
+        height: 100%;
+        width: 100%;
+        border-radius: 8px;
+        font-size: 18px;
+        outline: none;
+        background-color: var(--white-color);
+        color: var(--grey-very-light);
+        padding: 0 20px;
+        border: none;
+    }
+
+    .navbar_content {
+        display: flex;
+        align-items: center;
+        column-gap: 25px;
+    }
+
+    .navbar_content i {
+        cursor: pointer;
+        font-size: 20px;
+        color: var(--grey-color);
+    }
+
+    .person {
+        margin-top: 35px;
+        border-radius: 50%;
+        margin-left: 45px;
+    }
+
+    .sidebar {
+        background-color: var(--pink);
+        width: 260px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        padding: 20px;
+        z-index: 100;
+        overflow-y: scroll;
+        transition: all 0.5s ease;
+    }
+
+    .sidebar.close {
+        padding: 60px 0;
+        width: 80px;
+    }
+
+    .sidebar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu_content {
+        position: relative;
+    }
+
+    .bottom {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 0;
+        gap: 20px;
+        padding: 18px 10px;
+        width: 100%;
+        background-color: var(--pink);
+        margin-top: 200px;
+    }
+
+    .bottom span {
+        font-size: 16px;
+    }
+
+    h3 {
+        margin: 20px 45px 5px 45px;
+        font-weight: 700;
+        font-size: 17px;
+    }
+
+    .Admin {
+        color: var(--yellow-color);
+        text-align: center;
+    }
+
+    .students {
+        display: flex;
+        gap: 15px;
+        background-color: var(--yellow-color);
+        width: 180px;
+        height: 40px;
+        margin: auto;
+        padding: 10px 35px;
+        margin-top: 60px;
+        border-radius: 4px;
+    }
+
+    .students img {
+        margin-top: 3px;
+    }
+
+    .content {
+        margin-top: 60px;
+        margin-left: 260px;
+        padding: 20px;
+        width: 1087px;
+    }
+
+    .content_nav {
+        border-bottom: 1px solid var(--grey-very-light);
+        display: flex;
+        justify-content: space-between;
+    }
+
+    table {
+        width: 1050px;
+        border-collapse: separate; 
+        border-spacing: 0px 10px;
+        margin-top: 20px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    #studentTable tr {
+        background-color: white;
+        width: 1050px;
+        height: 80px;
+        
+    }
+
+    #studentTable tr td:first-child {
+        border-top-left-radius: 10px;
+    }
+
+    #studentTable tr td:last-child {
+        border-top-right-radius: 10px;
+    }
+
+    #studentTable tr td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+
+    #studentTable tr td:last-child {
+        border-bottom-right-radius: 10px;
+    }
+
+    th {
+        color: var(--grey-very-light);
+        font-weight: 600;
+        font-size: 12px;
+        padding-bottom: 22px;
+    }
+
+    .person2 {
+        border-radius: 10px;
+    }
+
+    .buttons button {
+        margin-right: 10px;
+    }
+
+    .new_student {
+        display: flex;
+        gap: 30px;
+    }
+
+    .new_student img {
+        width: 14px;
+        margin-top: 10px;
+    }
+
+    .new_student button {
+        background-color: var(--yellow-color);
+        width: 190px;
+        height: 40px;
+        color: white;
+        padding: 10px 5px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    h2 {
+        font-weight: 700;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .submitBtn {
+        margin: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .form-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-box {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+    }
+
+    .form-box input {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .form-box button {
+        background: var(--yellow-color);
+        color: white;
+        border: none;
+        padding: 10px;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: red;
+        color: white;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <nav class="navbar">
+        <img src="./images/caret-circle-down 1.svg" alt="" class="circle">
+        <div class="nav_right">
+            <div class="search_bar">
+                <i class="fa-sharp fa-thin fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchStudent()" />
+                <!-- <input type="text" placeholder="Search..." /> -->
+            </div>
+            <div class="navbar_content">
+                <i class="bi bi-grid"></i>
+                <box-icon name='bell'></box-icon>
+            </div>
+        </div>
+    </nav>
+    <nav class="sidebar">
+        <div class="menu_content">
+            <h1 class="text-xl font-bold text-gray-800">
+                <span class="border-l-4 border-yellow-500 pl-2">Admin Students</span>
+            </h1>
+            <img src="./images/pexels-photo-2379004 1.png" alt="" class="person">
+            <h3>Karthi Madesh</h3>
+            <p class="Admin">Admin</p>
+            <button class="students" onclick="window.open('./Students.html')"><img src="./images/graduation-cap 1.png"
+                    alt="">Students</button>
+            <div class="bottom">
+                <span>Logout</span>
+                <img src="./images/sign-out-alt 1 (1).png" alt="">
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="content_nav">
+            <h2>Students List</h2>
+            <div class="new_student">
+                <div class="image"><img src="./images/sort 1.svg" alt=""></div>
+                <button id="addStudentBtn">ADD NEW STUDENT</button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Enroll Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable">
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi1</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi2</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi3</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi4</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi5</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi6</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi7</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi8</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="./images/person.png" alt="" class="person2"></td>
+                    <td>Karthi9</td>
+                    <td>karthi@gmail.com</td>
+                    <td>7305477760</td>
+                    <td>123456</td>
+                    <td class="buttons">
+                        <button><img src="./images/Vector.svg" alt=""></button>
+                        <button onclick="editStudent(this)"><img src="./images/Vector.png" alt=""></button>
+                        <button onclick="deleteStudent(this)"><img src="./images/trash 1.png" alt=""></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="form-container" id="studentForm">
+            <div class="form-box">
+                <button class="close-btn" onclick="closeForm()">X</button>
+                <h2>Add New Student</h2>
+                <input type="file" id="studentImage" accept="image/*" required>
+                <input type="text" id="studentName" placeholder="Name" required>
+                <input type="email" id="studentEmail" placeholder="Email" required>
+                <input type="tel" id="studentPhone" placeholder="Phone" required>
+                <input type="text" id="studentEnroll" placeholder="Enroll Number" required>
+                <button onclick="submitForm()">Submit</button>
+            </div>
+        </div>
+
+
+        <script src="./Admin.js"></script>
+</body>
+
+</html>
